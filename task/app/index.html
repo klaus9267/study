@@ -1,0 +1,34 @@
+<!-- @format -->
+
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=1600, initial-scale=1.0" />
+        <title>TodoList</title>
+        <link rel="stylesheet" type="text/css" href="common.css" />
+        <script src="common.js"></script>
+    </head>
+
+    <body>
+        <form action="index.html">
+            <div class="boxDiv">
+                <div class="titleBox"></div>
+                <div class="titleTextDiv">TodoList</div>
+                <input type="text" class="addTextDiv" value="" />
+                <button class="add">add</button>
+                <hr />
+                <div
+                    class="todolistBox"
+                    onmouseover="show('xButton','editButton')"
+                    onmouseout="hide('xButton','editButton')"
+                >
+                    <button id="xButton" class="xButton">x</button>
+                    <div id="todolistText" class="todolistText">할 일</div>
+                    <button id="editButton" class="editButton">수정</button>
+                </div>
+            </div>
+        </form>
+    </body>
+</html>
