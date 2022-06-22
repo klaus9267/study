@@ -1,25 +1,28 @@
-/* ------- 전체박스 ------- */
+/**
+ * /* ------- 전체박스 -------
+ *
+ * @format
+ */
+
 .boxDiv {
-    position: absolute;
     width: 512px;
     height: 241px;
-    top: 64px;
-    left: 544px;
 
+    margin: 0 auto;
     box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.25), 0px 3px 6px rgba(0, 0, 0, 0.16);
 }
 /* ------- 타이틀 박스 -------*/
 .titleBox {
-    position: absolute;
     width: 512px;
     height: 110px;
+
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
 
     background: #51d3e7;
 }
 .titleTextDiv {
-    position: absolute;
-    top: 40px;
-    left: 108px;
     width: 296px;
     height: 30px;
 
@@ -30,6 +33,8 @@
     line-height: 100%;
     /* or 40px */
 
+    margin: 0 auto;
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -39,11 +44,18 @@
     color: #ffffff;
 }
 /* ------- 내용 입력 칸 ------- */
+.addBox {
+    width: 512px;
+    height: 63px;
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+    border-bottom: 1px solid #4fc0d1;
+}
 .addTextDiv {
     box-sizing: border-box;
-    position: absolute;
-    top: 123px;
-    left: 18px;
     width: 400px;
     height: 36px;
     background: #ffffff;
@@ -52,9 +64,6 @@
 }
 /* ------- 버튼 ------- */
 button.add {
-    position: absolute;
-    top: 123px;
-    left: 435px;
     width: 60px;
     height: 30px;
     border-radius: 4px;
@@ -83,32 +92,34 @@ button.add:active {
     background: #1d99ac;
     border-radius: 4px;
 }
-/* ------- 중간 선 ------- */
-hr {
-    position: absolute;
-    top: 173px;
-    width: 512px;
-    height: 0px;
-
-    border: 1px solid #4fc0d1;
-}
 /* ------- 할 일 ------- */
 .todolistBox {
-    position: absolute;
-    width: 472px;
-    height: 60px;
-    top: 177px;
-    left: 20px;
+    width: 512px;
+    height: 68px;
+
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
 
     background: #ffffff;
 }
-.todolistBox:hover {
+.todoList {
+    width: 472px;
+    height: 60px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.todoList:hover {
     background: #e3fafc;
 }
-.xButton {
-    position: absolute;
-    top: 24px;
-    left: 0px;
+.todolist:active {
+    text-decoration-line: line-through;
+    color: #adb5bd;
+}
+.xBtn {
     width: 9px;
     height: 16px;
     border: none;
@@ -130,16 +141,14 @@ hr {
     background: #e3fafc;
     color: #ff6161;
 }
-button.xButton:hover {
+button.xBtn:hover {
 }
-button.xButton:active {
+button.xBtn:active {
 }
 .todolistText {
-    position: absolute;
-    top: 21px;
-    left: 25px;
     width: 390px;
     height: 18px;
+    border: 0px;
 
     font-family: "Noto Sans KR";
     font-style: normal;
@@ -151,11 +160,10 @@ button.xButton:active {
     display: flex;
     align-items: center;
     letter-spacing: -0.05em;
-
     color: #606060;
 }
-.editButton {
-    position: absolute;
+/* ------- 수정버튼 ------- */
+.editBtn {
     top: 18px;
     left: 432px;
     width: 40px;
@@ -180,11 +188,11 @@ button.xButton:active {
     color: #ffffff;
     border-radius: 4px;
 }
-button.editButton:hover {
+button.editBtn:hover {
     background: #2ae3ff;
     border-radius: 4px;
 }
-button.editButton:active {
+button.editBtn:active {
     background: #1d99ac;
     border-radius: 4px;
 }

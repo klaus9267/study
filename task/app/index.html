@@ -7,28 +7,38 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=1600, initial-scale=1.0" />
         <title>TodoList</title>
-        <link rel="stylesheet" type="text/css" href="common.css" />
-        <script src="common.js"></script>
+        <link rel="stylesheet" type="text/css" href="style.css" />
     </head>
 
     <body>
-        <form action="index.html">
-            <div class="boxDiv">
-                <div class="titleBox"></div>
+        <!-- <form action="index.html"> -->
+        <div id="body" class="boxDiv">
+            <div class="titleBox">
                 <div class="titleTextDiv">TodoList</div>
-                <input type="text" class="addTextDiv" value="" />
-                <button class="add">add</button>
-                <hr />
+            </div>
+            <div class="addBox">
+                <input type="text" class="addTextDiv" id="addTextDiv" />
+                <button id="add" class="add">add</button>
+            </div>
+            <div class="todolistBox" id="todolistBox">
                 <div
-                    class="todolistBox"
-                    onmouseover="show('xButton','editButton')"
-                    onmouseout="hide('xButton','editButton')"
+                    class="todoList"
+                    onmouseover="show('xBtn','editBtn')"
+                    onmouseout="hide('xBtn','editBtn')"
                 >
-                    <button id="xButton" class="xButton">x</button>
-                    <div id="todolistText" class="todolistText">할 일</div>
-                    <button id="editButton" class="editButton">수정</button>
+                    <button id="xBtn" class="xBtn">x</button>
+                    <div class="todolistText" onclick="fin()">할 일</div>
+                    <button
+                        id="editBtn"
+                        class="editBtn"
+                        onclick="changeBtnName()"
+                    >
+                        수정
+                    </button>
                 </div>
             </div>
-        </form>
+        </div>
+        <!-- </form> -->
     </body>
+    <script src="main.js"></script>
 </html>
