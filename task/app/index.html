@@ -12,31 +12,33 @@
 
     <body>
         <!-- <form action="index.html"> -->
-        <div id="body" class="boxDiv">
+        <div id="Box" class="boxDiv">
             <div class="titleBox">
                 <div class="titleTextDiv">TodoList</div>
             </div>
             <div class="addBox">
-                <input type="text" class="addTextDiv" id="addTextDiv" />
+                <input
+                    type="text"
+                    id="addTextDiv"
+                    class="addTextDiv"
+                    placeholder="해야 할 일을 입력해주세요."
+                />
                 <button id="add" class="add">add</button>
             </div>
-            <div class="todolistBox" id="todolistBox">
-                <div
-                    class="todoList"
-                    onmouseover="show('xBtn','editBtn')"
-                    onmouseout="hide('xBtn','editBtn')"
-                >
+            <ul class="todolistBox" id="todolistBox">
+                <!-- <li class="todoList">
                     <button id="xBtn" class="xBtn">x</button>
-                    <div class="todolistText" onclick="fin()">할 일</div>
+                    <div id="todolistText" class="todolistText">
+                        할 일
+                    </div>
                     <button
                         id="editBtn"
                         class="editBtn"
-                        onclick="changeBtnName()"
                     >
                         수정
                     </button>
-                </div>
-            </div>
+                </li> -->
+            </ul>
         </div>
         <!-- </form> -->
     </body>

@@ -1,12 +1,9 @@
-/**
- * /* ------- 전체박스 -------
- *
- * @format
- */
+/** @format */
+
+/* ------- 전체박스 -------*/
 
 .boxDiv {
     width: 512px;
-    height: 241px;
 
     margin: 0 auto;
     box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.25), 0px 3px 6px rgba(0, 0, 0, 0.16);
@@ -95,29 +92,30 @@ button.add:active {
 /* ------- 할 일 ------- */
 .todolistBox {
     width: 512px;
-    height: 68px;
+
+    margin: 0px;
+    padding: 0px;
 
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-
-    background: #ffffff;
 }
 .todoList {
     width: 472px;
-    height: 60px;
-
+    height: 68px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
+.todoList:hover > .xBtn {
+    visibility: visible;
+}
+.todoList:hover > .editBtn {
+    visibility: visible;
+}
 .todoList:hover {
     background: #e3fafc;
-}
-.todolist:active {
-    text-decoration-line: line-through;
-    color: #adb5bd;
 }
 .xBtn {
     width: 9px;
@@ -140,10 +138,6 @@ button.add:active {
 
     background: #e3fafc;
     color: #ff6161;
-}
-button.xBtn:hover {
-}
-button.xBtn:active {
 }
 .todolistText {
     width: 390px;
