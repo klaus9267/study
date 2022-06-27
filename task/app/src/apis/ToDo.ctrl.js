@@ -2,8 +2,20 @@
 
 "use strict";
 
-const home = (req, res) => {
-    res.render("index");
+const output = {
+    home: (req, res) => {
+        res.render("index");
+    },
 };
 
-module.exports = { home };
+const process = {
+    add: (req, res) => {
+        // console.log(req);
+        console.log(req.body);
+    },
+};
+
+module.exports = {
+    output,
+    process,
+};

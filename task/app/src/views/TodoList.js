@@ -1,9 +1,28 @@
 /** @format */
-zz;
-let inputBox = document.getElementById("addTextDiv");
-let addToDo = document.getElementById("add");
-let toDoList = document.getElementById("todolistBox");
-let list_count = 0;
+console.log("hello");
+
+const inputBox = document.querySelector("#addTextDiv"),
+    addToDo = document.getElementById("add"),
+    toDoList = document.getElementById("todolistBox");
+
+addToDo.addEventListener("click", inputList);
+
+function inputList() {
+    const req = {
+        todo: inputBox.value,
+    };
+    console.log(JSON.stringify(req));
+    fetch("/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(req),
+    });
+}
+/*
+list_count = 0; // 수정버튼 클릭 횟수
+
 addToDo.addEventListener("click", function () {
     list_count++;
     let list = document.createElement("li");
@@ -14,10 +33,10 @@ addToDo.addEventListener("click", function () {
     }
     // 할 일 목록 2개부터 구분선 추가
 
-    let xBtn = document.createElement("button"); //삭제버튼
-    let todolistText = document.createElement("div"); //할 일 내용
-    let editBtn = document.createElement("button"); //수정버튼
-    let editText = document.createElement("input"); //할 일 내용 (input태그)
+    let xBtn = document.createElement("button"), //삭제버튼
+        todolistText = document.createElement("div"), //할 일 내용
+        editBtn = document.createElement("button"), //수정버튼
+        editText = document.createElement("input"); //할 일 내용 (input태그)
 
     xBtn.classList.add("xBtn");
     todolistText.classList.add("todolistText");
@@ -83,3 +102,4 @@ addToDo.addEventListener("click", function () {
         });
     }
 });
+*/
