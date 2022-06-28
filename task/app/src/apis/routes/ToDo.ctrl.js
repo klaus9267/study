@@ -2,6 +2,10 @@
 
 "use strict";
 
+const ToDoStorage = require("../../models/ToDoStorage");
+// const ToDo = require("../../models/ToDo")
+const todo = new ToDo(req.body);
+
 const output = {
     add: (req, res) => {
         res.render("index");
@@ -10,7 +14,7 @@ const output = {
 
 const process = {
     add: async (req, res) => {
-        const add = new lists(req.body);
+        const todo = new ToDo(req.body);
     },
 };
 

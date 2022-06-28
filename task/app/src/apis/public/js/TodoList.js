@@ -1,5 +1,4 @@
 /** @format */
-console.log("hello");
 
 const inputBox = document.querySelector("#addTextDiv"),
     addToDo = document.getElementById("add"),
@@ -20,7 +19,7 @@ function inputList() {
         body: JSON.stringify(req),
     });
 }
-
+/*
 list_count = 0; // 수정버튼 클릭 횟수
 
 addToDo.addEventListener("click", function () {
@@ -102,3 +101,4 @@ addToDo.addEventListener("click", function () {
         });
     }
 });
+*/

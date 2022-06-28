@@ -4,12 +4,18 @@
 
 const db = require("../config/mysql");
 
-class lists {
-    static todo(todo) {
+// class ToDoStorage {
+//     static lists = {
+//         todo: ["할일1", "할일2"],
+//     };
+// }
+
+class ToDoStorage {
+    static read(todo) {
         db.query("select * from lists", (err, data) => {
-            console.log(data);
+            return data;
         });
     }
 }
 
-module.exports = db;
+module.exports = ToDoStorage;
