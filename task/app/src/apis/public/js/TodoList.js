@@ -20,19 +20,10 @@ function inputList() {
         body: JSON.stringify(req),
     });
 }
-/*
+
 list_count = 0; // 수정버튼 클릭 횟수
 
 addToDo.addEventListener("click", function () {
-    list_count++;
-    let list = document.createElement("li");
-    list.classList.add("todoList");
-
-    if (list_count > 1) {
-        list.style.borderTop = "1px solid #F1F3F5";
-    }
-    // 할 일 목록 2개부터 구분선 추가
-
     let xBtn = document.createElement("button"), //삭제버튼
         todolistText = document.createElement("div"), //할 일 내용
         editBtn = document.createElement("button"), //수정버튼
@@ -43,6 +34,15 @@ addToDo.addEventListener("click", function () {
     editBtn.classList.add("editBtn");
     editText.classList.add("todolistText");
     //class 삽입
+
+    list_count++;
+    let list = document.createElement("li");
+    list.classList.add("todoList");
+
+    if (list_count > 1) {
+        list.style.borderTop = "1px solid #F1F3F5";
+    }
+    // 할 일 목록 2개부터 구분선 추가
 
     xBtn.innerText = "x";
     editBtn.innerText = "수정";
@@ -102,4 +102,3 @@ addToDo.addEventListener("click", function () {
         });
     }
 });
-*/

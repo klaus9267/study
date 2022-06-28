@@ -7,7 +7,7 @@ const router = express.Router();
 
 const ctrl = require("./ToDo.ctrl");
 
-router.get("/", ctrl.output.home);
+router.get("/", ctrl.output.add);
 router.post("/", ctrl.process.add);
 
 module.exports = router;

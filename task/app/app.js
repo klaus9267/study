@@ -7,12 +7,12 @@ const app = express();
 const bodyParser = require("body-parser");
 
 //라우팅
-const home = require("./src/apis");
+const home = require("./src/apis/routes");
 
 //앱 세팅
 app.set("views", "./src/views");
 app.set("view engine", "ejs");
-app.use(express.static(`${__dirname}/src/views`));
+app.use(express.static(`${__dirname}/src/apis/public`));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

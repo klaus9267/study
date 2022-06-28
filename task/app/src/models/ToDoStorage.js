@@ -2,10 +2,14 @@
 
 "use strict";
 
-class stack {
-    static list = {
-        todo: [],
-    };
+const db = require("../config/mysql");
+
+class lists {
+    static todo(todo) {
+        db.query("select * from lists", (err, data) => {
+            console.log(data);
+        });
+    }
 }
 
-module.exports = stack;
+module.exports = db;

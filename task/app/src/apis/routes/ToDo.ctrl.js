@@ -3,15 +3,14 @@
 "use strict";
 
 const output = {
-    home: (req, res) => {
+    add: (req, res) => {
         res.render("index");
     },
 };
 
 const process = {
-    add: (req, res) => {
-        // console.log(req);
-        console.log(req.body);
+    add: async (req, res) => {
+        const add = new lists(req.body);
     },
 };
 
