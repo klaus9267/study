@@ -1,5 +1,3 @@
-/** @format */
-
 /* ------- 전체박스 -------*/
 
 .boxDiv {
@@ -51,7 +49,7 @@
 
     border-bottom: 1px solid #4fc0d1;
 }
-.addTextDiv {
+#inputContent {
     box-sizing: border-box;
     width: 400px;
     height: 36px;
@@ -60,7 +58,7 @@
     border-bottom: 1px solid #c5f6fa;
 }
 /* ------- 버튼 ------- */
-button.add {
+#addBtn {
     width: 60px;
     height: 30px;
     border-radius: 4px;
@@ -81,16 +79,16 @@ button.add {
     background: #24c3dc;
     color: #ffffff;
 }
-button.add:hover {
+#addBtn:hover {
     background: #2ae3ff;
     border-radius: 4px;
 }
-button.add:active {
+#addBtn:active {
     background: #1d99ac;
     border-radius: 4px;
 }
 /* ------- 할 일 ------- */
-.todolistBox {
+#listBox {
     width: 512px;
 
     margin: 0px;
@@ -108,7 +106,7 @@ button.add:active {
     justify-content: space-between;
     align-items: center;
 }
-.todoList:hover > .xBtn {
+.todoList:hover > .delBtn {
     visibility: visible;
 }
 .todoList:hover > .editBtn {
@@ -117,7 +115,7 @@ button.add:active {
 .todoList:hover {
     background: #e3fafc;
 }
-.xBtn {
+.delBtn {
     width: 9px;
     height: 16px;
     border: none;
@@ -139,7 +137,7 @@ button.add:active {
     background: #e3fafc;
     color: #ff6161;
 }
-.todolistText {
+.todoContent {
     width: 390px;
     height: 18px;
     border: 0px;

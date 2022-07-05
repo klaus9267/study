@@ -1,19 +1,17 @@
-/** @format */
-
 "use strict";
 
 const db = require("../config/mysql");
 
-// class ToDoStorage {
-//     static lists = {
-//         todo: ["할일1", "할일2"],
-//     };
-// }
-
 class ToDoStorage {
-    // static read(todo) {
-    //     db.query("select * from lists", (err, data) => {});
-    // }
+    static async viewList() {
+        return new Promise((resolve, reject) => {
+            const query = "SELECT * FROM lists;";
+            db.query(query, (err, data) => {
+                if (err) reject(err);
+                resolve(data);
+            });
+        });
+    }
 
     static async addList(content) {
         return new Promise((resolve, reject) => {
@@ -35,10 +33,10 @@ class ToDoStorage {
         });
     }
 
-    static async editList(edit, add) {
+    static async editList(edit, before) {
         return new Promise((resolve, reject) => {
             const query = "UPDATE lists SET todo = ? WHERE todo = ?;";
-            db.query(query, [edit, add], (err, data) => {
+            db.query(query, [edit, before], (err, data) => {
                 if (err) reject(err);
                 resolve(data);
             });
