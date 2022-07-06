@@ -1,0 +1,15 @@
+use todo_list;
+
+CREATE TABLE lists(
+	no int NOT NULL auto_increment,
+	todo varchar(255) NOT null,
+    is_check boolean,	
+    in_date datetime DEFAULT current_timestamp,
+    
+    primary key (no)
+    );
+    
+    delete from lists WHERE no=1;
+    select * from lists;
+    drop table lists;
+    
