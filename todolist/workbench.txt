@@ -1,6 +1,6 @@
 use todo_list;
 
-CREATE TABLE lists(
+CREATE TABLE todo_list.lists(
 	no int NOT NULL auto_increment,
 	todo varchar(255) NOT null,
     is_check boolean,	
@@ -10,6 +10,6 @@ CREATE TABLE lists(
     );
     
     delete from lists WHERE no=1;
-    select * from lists;
+    select * from todo_list.lists;
     drop table lists;
     
