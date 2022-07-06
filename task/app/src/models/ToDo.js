@@ -23,7 +23,7 @@ class ToDo {
     async addList() {
         const client = this.body;
         try {
-            await ToDoStorage.addList(client.addList);
+            await ToDoStorage.addList(client.content, client.is_check);
             if (!clinet) {
                 return { success: false };
             } else {
@@ -46,7 +46,11 @@ class ToDo {
     async editList() {
         const client = this.body;
         try {
-            await ToDoStorage.editList(client.editList, client.beforeText);
+            await ToDoStorage.editList(
+                client.content,
+                client.isCheck,
+                client.no
+            );
             if (!clinet) {
                 return { success: false };
             } else {

@@ -13,10 +13,10 @@ class ToDoStorage {
         });
     }
 
-    static async addList(content) {
+    static async addList(content, isCheck) {
         return new Promise((resolve, reject) => {
-            const query = "INSERT INTO lists(todo) VALUES(?);";
-            db.query(query, [content], (err, data) => {
+            const query = "INSERT INTO lists(todo,is_check) VALUES(?,?);";
+            db.query(query, [content, isCheck], (err, data) => {
                 if (err) reject(err);
                 resolve(data);
             });
@@ -25,7 +25,7 @@ class ToDoStorage {
 
     static async deleteList(content) {
         return new Promise((resolve, reject) => {
-            const query = "DELETE FROM lists WHERE todo = ?;";
+            const query = "DELETE FROM lists WHERE no = ?;";
             db.query(query, [content], (err, data) => {
                 if (err) reject(err);
                 resolve(data);
@@ -33,10 +33,11 @@ class ToDoStorage {
         });
     }
 
-    static async editList(edit, before) {
+    static async editList(content, isCheck, no) {
         return new Promise((resolve, reject) => {
-            const query = "UPDATE lists SET todo = ? WHERE todo = ?;";
-            db.query(query, [edit, before], (err, data) => {
+            const query =
+                "UPDATE lists SET todo = ?,is_check = ? WHERE no = ?;";
+            db.query(query, [content, isCheck, no], (err, data) => {
                 if (err) reject(err);
                 resolve(data);
             });

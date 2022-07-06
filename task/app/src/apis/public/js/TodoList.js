@@ -1,44 +1,54 @@
 "use strict";
-import * as ToDoListFunction from "./functions.js";
 
-const listArr = [];
+import * as ToDoListFunction from "./functions.js";
 
 const inputBox = document.querySelector("#inputContent"),
     addBtn = document.querySelector("#addBtn"),
-    listBox = document.querySelector("#listBox");
+    listBox = document.querySelector("#listBox"),
+    listArr = [];
 
-// const test = async () => {
-//     const test2 = await ToDoListFunction.loadList();
-//     console.log("test2->", test2);
+const loadData = async (no, todo) => {
+    let data = [no, todo];
+    // console.log(data);
+    return data;
+};
 
-//     return test2;
-// };
+const loadList = async () => {
+    const listData = await ToDoListFunction.viewList();
 
-// inputBox.value = "";
-//입력창 초기화
+    listData.forEach(data => {
+        createList(data.no, data.todo);
+        loadData(data.no, data.todo);
+    });
+};
+loadList();
 
-addBtn.addEventListener("click", e => {
-    // ToDoListFunction.addList();
-    // plus();
-    createList();
-    console.log(listArr);
+let listCount = 0;
+let isCheck = false;
+
+addBtn.addEventListener("click", () => {
+    inputCheck();
 });
 
 inputBox.addEventListener("keyup", e => {
     if (e.keyCode === 13) {
-        ToDoListFunction.addList();
-        plus();
+        inputCheck();
     }
 });
 
-let list_count = 0; // 리스트 수
+// ------------------------------------------functions------------------------------------------
 
-function createList() {
-    list_count++;
+const createList = (no, todo) => {
+    let clickCount = 0;
+    listCount = no;
 
     const list = document.createElement("li");
     list.classList.add("todoList");
     listBox.appendChild(list);
+
+    if (listCount > 1) {
+        list.style.borderTop = "1px solid #F1F3F5";
+    }
 
     const delBtn = document.createElement("button"); //삭제버튼
     delBtn.classList.add("delBtn");
@@ -46,14 +56,9 @@ function createList() {
     list.appendChild(delBtn);
 
     const todoContent = document.createElement("div"); //할 일 내용
-    todoContent.innerText = inputBox.value;
+    todoContent.innerText = todo;
     todoContent.classList.add("todoContent");
     list.appendChild(todoContent);
-
-    const editBtn = document.createElement("button"); //수정버튼
-    editBtn.classList.add("editBtn");
-    editBtn.innerText = "수정";
-    list.appendChild(editBtn);
 
     const editContent = document.createElement("input"); //할 일 내용 (input태그)
     editContent.type = "text"; //할 일 내용(input)을 type = 'text'로 변경
@@ -61,77 +66,76 @@ function createList() {
     editContent.classList.add("todoContent");
     list.appendChild(editContent);
 
-    listArr.push(list);
-}
+    const editBtn = document.createElement("button"); //수정버튼
+    editBtn.classList.add("editBtn");
+    editBtn.innerText = "수정";
+    list.appendChild(editBtn);
 
-/*
+    delBtn.addEventListener("click", () => {
+        list.remove();
+        ToDoListFunction.deleteList(no);
+    });
 
-function strikeSetting() {
-    list_count++;
+    (editBtn || editContent).addEventListener("click" || "keyup", e => {
+        e.stopPropagation();
+        editBtn.innerText === "수정"
+            ? editReady(todoContent, editContent, editBtn)
+            : editDone(todoContent, editContent, no, editBtn);
+    });
 
-    if (list_count > 1) {
-        list.style.borderTop = "1px solid #F1F3F5";
+    editContent.addEventListener("keyup" || "click", e => {
+        e.stopPropagation();
+        console.log(1);
+        if (e.keyCode === 13) {
+            editStatus(todoContent, editContent, no, editBtn);
+        }
+    });
+    list.addEventListener("click", () => {
+        clickCount++;
+        middleLine(clickCount, todoContent);
+        console.log(clickCount);
+    });
+    inputBox.value = "";
+};
+const editStatus = (content, input, no, btn) => {
+    btn.innerText === "수정"
+        ? editReady(content, input, btn)
+        : editDone(content, input, no, btn);
+};
+
+const editReady = (content, input, btn) => {
+    input.value = content.innerText;
+    content.style.display = "none"; // 홀수 번째 클릭 시 할 일 리스트 숨김
+    input.style.display = "block"; // 홀수 번째 클릭 시 수정창 숨김해제
+    btn.innerText = "완료"; //수정버튼 수정 -> 완료  텍스트 변환
+    content.style.backgroundColor = "#ffffff"; //수정중에 수정 창 배경 색 변환
+};
+
+const editDone = (content, input, no, btn) => {
+    content.style.display = "block"; // 짝수 번째 클릭 시 할 일 리스트 숨김해제
+    input.style.display = "none"; // 짝수 번째 클릭 시 수정창 숨김
+    content.innerText = input.value; //할 일 리스트에 수정 값 입력
+    content.style.backgroundColor = "";
+    btn.innerText = "수정";
+    ToDoListFunction.editList(input, isCheck, no);
+};
+
+const middleLine = (cnt, content) => {
+    if (cnt % 2) {
+        content.style.textDecoration = "line-through";
+        isCheck = true;
+    } else {
+        content.style.textDecoration = "";
+        isCheck = false;
     }
-}
+};
 
-function plus() {
-    createItem();
-    itemSetting();
-    strikeSetting();
-
+const inputCheck = () => {
     if (!inputBox.value) {
         alert("내용을 입력해 주세요!");
         //빈 내용 입력 시 msg출력
     } else {
-        todoContent.innerText = inputBox.value;
-        editContent.value = inputBox.value;
-        listBox.appendChild(list);
-        inputBox.value = "";
-
-        appendItem();
-
-        let line_count = 0;
-        let count = 0;
-        //수정 버튼 클릭 횟수
-
-        list.addEventListener("click", function () {
-            line_count++;
-            line_count % 2 == 1
-                ? (todoContent.style.textDecoration = "line-through")
-                : (todoContent.style.textDecoration = "");
-            // 취소선 삽입, 삭제
-        });
-
-        delBtn.addEventListener("click", function () {
-            list.remove(); //웹에서 삭제
-            deleteList(); //DB에서 삭제
-        });
-
-        editBtn.addEventListener("click", function () {
-            editMethod();
-        });
-        editContent.addEventListener("keyup", event => {
-            if (event.keyCode === 13) {
-                editMethod();
-            }
-        });
-
-        function editMethod() {
-            count++;
-            if (count % 2 === 1) {
-                todoContent.style.display = "none"; // 홀수 번째 클릭 시 할 일 리스트 숨김
-                editContent.style.display = "block"; // 홀수 번째 클릭 시 수정창 숨김해제
-                editBtn.innerText = "완료"; //수정버튼 수정 -> 완료  텍스트 변환
-                todoContent.style.backgroundColor = "#ffffff"; //수정중에 수정 창 배경 색 변환
-            } else {
-                editList();
-                todoContent.style.display = "block"; // 짝수 번째 클릭 시 할 일 리스트 숨김해제
-                editContent.style.display = "none"; // 짝수 번째 클릭 시 수정창 숨김
-                todoContent.innerText = editContent.value; //할 일 리스트에 수정 값 입력
-                editBtn.innerText = "수정"; // 수정버튼 완료 -> 수정 텍스트 변환
-                todoContent.style.backgroundColor = "";
-            }
-        }
+        ToDoListFunction.addList(inputBox, isCheck);
+        createList(listCount + 1, inputBox.value);
     }
-}
-*/
+};

@@ -1,4 +1,4 @@
-const loadList = async () => {
+const viewList = async () => {
     const arr = [];
     // response 리턴할 변수 (받은 데이터 저장)
 
@@ -13,7 +13,7 @@ const loadList = async () => {
         .then(json => json.data)
         .then(data => {
             for (let i = 0; i < data.length; i++) {
-                arr.push(data[i].todo);
+                arr.push({ no: data[i].no, todo: data[i].todo });
             }
         });
     return arr;
@@ -21,9 +21,10 @@ const loadList = async () => {
 };
 // DB에서 list가져와 화면에 출력
 
-const addList = () => {
+const addList = (todo, check) => {
     const req = {
-        addList: inputBox.value,
+        content: todo.value,
+        is_check: check,
     };
     fetch("/", {
         method: "POST",
@@ -35,10 +36,11 @@ const addList = () => {
 };
 // DB에 추가
 
-const editList = () => {
+const editList = (content, isCheck, no) => {
     const req = {
-        editList: editText.value,
-        beforeText: todolistText.innerText,
+        content: content.value,
+        isCheck: isCheck,
+        no: no,
     };
 
     fetch("/", {
@@ -51,9 +53,9 @@ const editList = () => {
 };
 // DB에서 수정
 
-const deleteList = () => {
+const deleteList = no => {
     const req = {
-        deleteList: todolistText.innerText,
+        deleteList: no,
     };
     fetch("/", {
         method: "DELETE",
@@ -65,21 +67,4 @@ const deleteList = () => {
 };
 // DB에서 삭제
 
-function editMethod() {
-    count++;
-    if (count % 2 === 1) {
-        todolistText.style.display = "none"; // 홀수 번째 클릭 시 할 일 리스트 숨김
-        editText.style.display = "block"; // 홀수 번째 클릭 시 수정창 숨김해제
-        editBtn.innerText = "완료"; //수정버튼 수정 -> 완료  텍스트 변환
-        todolistText.style.backgroundColor = "#ffffff"; //수정중에 수정 창 배경 색 변환
-    } else {
-        editList();
-        todolistText.style.display = "block"; // 짝수 번째 클릭 시 할 일 리스트 숨김해제
-        editText.style.display = "none"; // 짝수 번째 클릭 시 수정창 숨김
-        todolistText.innerText = editText.value; //할 일 리스트에 수정 값 입력
-        editBtn.innerText = "수정"; // 수정버튼 완료 -> 수정 텍스트 변환
-        todolistText.style.backgroundColor = "";
-    }
-}
-
-export { loadList, addList, editList, deleteList };
+export { viewList, addList, editList, deleteList };

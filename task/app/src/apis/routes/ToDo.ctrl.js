@@ -34,7 +34,6 @@ const process = {
             path: "/",
             status: response.err ? 400 : 201,
         };
-
         log(response, url);
         return res.status(url.status).json(response);
     },
