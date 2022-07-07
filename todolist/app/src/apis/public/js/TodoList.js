@@ -68,8 +68,7 @@ const createList = (no, todo) => {
     list.addEventListener("click", () => {
         if (editBtn.innerText === "수정")
             isCheck === false
-                ? ((todoContent.style.textDecoration = "line-through"),
-                  (isCheck = true))
+                ? ((todoContent.style.textDecoration = "line-through"), (isCheck = true))
                 : ((todoContent.style.textDecoration = ""), (isCheck = false));
     });
 
