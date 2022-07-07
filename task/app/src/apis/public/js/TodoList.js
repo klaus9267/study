@@ -5,11 +5,9 @@ import * as ToDoListFunction from "./functions.js";
 const inputBox = document.querySelector("#inputContent"),
     addBtn = document.querySelector("#addBtn"),
     listBox = document.querySelector("#listBox"),
-    listArr = [];
 
 const loadData = async (no, todo) => {
     let data = [no, todo];
-    // console.log(data);
     return data;
 };
 
@@ -93,7 +91,7 @@ const createList = (no, todo) => {
     list.addEventListener("click", () => {
         clickCount++;
         middleLine(clickCount, todoContent);
-        console.log(clickCount);
+        ToDoListFunction.editList(editContent, isCheck, no);
     });
     inputBox.value = "";
 };

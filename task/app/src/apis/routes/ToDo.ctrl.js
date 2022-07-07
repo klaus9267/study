@@ -14,16 +14,20 @@ const output = {
 
 const process = {
     viewList: async (req, res) => {
-        const todo = new ToDo();
-        const response = await todo.viewList();
-        const url = {
-            method: "GET",
-            path: "/home",
-            status: !response.success ? 404 : 200,
-        };
+        try {
+            const todo = new ToDo();
+            const response = await todo.viewList();
+            const url = {
+                method: "GET",
+                path: "/home",
+                status: !response.success ? 404 : 200,
+            };
 
-        log(response, url);
-        return res.status(url.status).json(response);
+            log(response, url);
+            return res.status(url.status).json(response);
+        } catch (err) {
+            throw err;
+        }
     },
 
     addList: async (req, res) => {
@@ -43,9 +47,9 @@ const process = {
         const response = todo.deleteList();
 
         const url = {
-            method: "POST",
+            method: "DELETE",
             path: "/",
-            status: response.err ? 404 : 226,
+            status: response.err ? 404 : 200,
         };
 
         log(response, url);
@@ -57,9 +61,9 @@ const process = {
         const response = todo.editList();
 
         const url = {
-            method: "POST",
+            method: "PATCH",
             path: "/",
-            status: response.err ? 400 : 226,
+            status: response.err ? 400 : 200,
         };
 
         log(response, url);

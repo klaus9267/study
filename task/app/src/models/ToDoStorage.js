@@ -4,13 +4,18 @@ const db = require("../config/mysql");
 
 class ToDoStorage {
     static async viewList() {
-        return new Promise((resolve, reject) => {
-            const query = "SELECT * FROM lists;";
-            db.query(query, (err, data) => {
-                if (err) reject(err);
-                resolve(data);
+        try {
+            //
+            return new Promise((resolve, reject) => {
+                const query = "SELECT * FROM lists;";
+                db.query(query, (err, data) => {
+                    if (err) reject(err);
+                    resolve(data);
+                });
             });
-        });
+        } catch (err) {
+            throw err;
+        }
     }
 
     static async addList(content, isCheck) {

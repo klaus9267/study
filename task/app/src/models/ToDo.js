@@ -16,7 +16,8 @@ class ToDo {
                 return { data, success: true };
             }
         } catch (err) {
-            return { msg: err };
+            throw err;
+            // return { msg: err };
         }
     }
 
