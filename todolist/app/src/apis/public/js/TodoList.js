@@ -32,7 +32,7 @@ const createList = (no, todo) => {
     listCount = no;
 
     const list = document.createElement("li"),
-        delBtn = document.createElement("button"), //삭제버튼
+        delBtn = document.createElement("button"), //삭제버튼.
         todoContent = document.createElement("div"), //할 일 내용
         editContent = document.createElement("input"), //할 일 내용 (input태그)
         editBtn = document.createElement("button"); //수정버튼
