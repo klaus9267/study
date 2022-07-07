@@ -13,7 +13,11 @@ const viewList = async () => {
         .then(json => json.data)
         .then(data => {
             for (let i = 0; i < data.length; i++) {
-                arr.push({ no: data[i].no, todo: data[i].todo });
+                arr.push({
+                    no: data[i].no,
+                    todo: data[i].todo,
+                    isCheck: data[i].is_check,
+                });
             }
         });
     return arr;

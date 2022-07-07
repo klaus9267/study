@@ -39,6 +39,14 @@ class ToDoStorage {
     }
 
     static async editList(content, isCheck, no) {
+        // try {
+        //     const query = `UPDATE lists SET todo = ?,is_check = ? WHERE no = ?;`;
+        //     const response = await db.query(query, [content, isCheck, no]);
+
+        //     return response;
+        // } catch (err) {
+        //     throw err;
+        // }
         return new Promise((resolve, reject) => {
             const query =
                 "UPDATE lists SET todo = ?,is_check = ? WHERE no = ?;";

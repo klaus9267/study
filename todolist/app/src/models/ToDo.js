@@ -25,7 +25,7 @@ class ToDo {
         const client = this.body;
         try {
             await ToDoStorage.addList(client.content, client.is_check);
-            if (!clinet) {
+            if (!client) {
                 return { success: false };
             } else {
                 return { data, success: true };
@@ -47,12 +47,13 @@ class ToDo {
     async editList() {
         const client = this.body;
         try {
-            await ToDoStorage.editList(
+            const result = await ToDoStorage.editList(
                 client.content,
                 client.isCheck,
                 client.no
             );
-            if (!clinet) {
+            if (!result["affectedRows"]) {
+                //
                 return { success: false };
             } else {
                 return { data, success: true };
