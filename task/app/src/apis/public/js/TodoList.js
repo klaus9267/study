@@ -4,7 +4,7 @@ import * as ToDoListFunction from "./functions.js";
 
 const inputBox = document.querySelector("#inputContent"),
     addBtn = document.querySelector("#addBtn"),
-    listBox = document.querySelector("#listBox"),
+    listBox = document.querySelector("#listBox");
 
 const loadData = async (no, todo) => {
     let data = [no, todo];
