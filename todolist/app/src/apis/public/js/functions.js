@@ -1,6 +1,5 @@
 const viewList = async () => {
     const arr = [];
-    // response 리턴할 변수 (받은 데이터 저장)
 
     await fetch("/home", {
         method: "GET",
@@ -21,7 +20,6 @@ const viewList = async () => {
             }
         });
     return arr;
-    // response 에 저장
 };
 // DB에서 list가져와 화면에 출력
 

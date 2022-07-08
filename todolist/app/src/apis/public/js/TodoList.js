@@ -83,6 +83,7 @@ const createList = (no, todo, Check) => {
     editBtn.addEventListener("click", e => {
         e.stopPropagation();
         editList(todoContent, editContent, no, editBtn);
+        s;
     });
 
     editContent.addEventListener("keyup", e => {
