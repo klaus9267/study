@@ -32,7 +32,7 @@ const process = {
 
     post: async (req, res) => {
         const insta = new ToDo(req.body);
-        aonst response = insta.post();
+        const response = insta.post();
         const url = {
             method: "POST",
             path: "/",

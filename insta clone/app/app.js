@@ -1,21 +1,25 @@
 "use strict";
-//모듈
-const express = require("express");
-const app = express();
-const dotenv = require("dotenv");
+
+const express = require("express"),
+    dotenv = require("dotenv");
+// 환경변수 관리 라이브러리
+
 dotenv.config();
 
-//라우팅
-const home = require("./src/apis/routes");
-
-//앱 세팅
-app.set("views", "./src/views");
-app.set("view engine", "ejs");
-
-app.use(express.static(`${__dirname}/src/apis/public`));
+const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/", home);
+// API 경로 설정
+const profile = require("./src/apis/profile");
+// user = require("./src/apis/post");
+
+//라우팅
+// const home = require("./src/apis/profile");
+
+// API 연결
+// app.use("/moae/main", home);
+app.use("/moae/main", profile);
+// app.use("/moae/user/profile/:userNo", user);
 
 module.exports = app;

@@ -1,54 +1,21 @@
 "use strict";
 
-const db = require("../config/mysql");
+const db = require("../../config/mysql");
 
-class ToDoStorage {
-    static async viewList() {
+class ProfileStorage {
+    static async selectProfile(resolve, reject) {
         try {
-            //
-            return new Promise((resolve, reject) => {
-                const query = "SELECT * FROM lists;";
-                db.query(query, (err, data) => {
-                    if (err) reject(err);
-                    resolve(data);
-                });
+            const query =
+                "INSERT INTO user('nickname','email',gender,'create_date') VALUES();";
+            // "SELECT * FROM users;";
+            await db.query(query, (err, data) => {
+                if (err) reject(err);
+                resolve(data);
             });
         } catch (err) {
             throw err;
         }
     }
-
-    static async addList(content, isCheck) {
-        return new Promise((resolve, reject) => {
-            const query = "INSERT INTO lists(todo,is_check) VALUES(?,?);";
-            db.query(query, [content, isCheck], (err, data) => {
-                if (err) reject(err);
-                resolve(data);
-            });
-        });
-    }
-
-    static async deleteList(content) {
-        return new Promise((resolve, reject) => {
-            const query = "DELETE FROM lists WHERE no = ?;";
-            db.query(query, [content], (err, data) => {
-                if (err) reject(err);
-                resolve(data);
-            });
-        });
-    }
-
-    static async editList(content, isCheck, no) {
-        console.log(isCheck);
-        return new Promise((resolve, reject) => {
-            const query =
-                "UPDATE lists SET todo = ?,is_check = ? WHERE no = ?;";
-            db.query(query, [content, isCheck, no], (err, data) => {
-                if (err) reject(err);
-                resolve(data);
-            });
-        });
-    }
 }
 
-module.exports = ToDoStorage;
+module.exports = ProfileStorage;
