@@ -1,49 +1,25 @@
 "use strict";
 
-const db = require("../config/mysql");
+const db = require("../../config/mysql");
 
-class ToDoStorage {
-    static async viewList() {
-        try {
-            //
-            return new Promise((resolve, reject) => {
-                const query = "SELECT * FROM lists;";
-                db.query(query, (err, data) => {
-                    if (err) reject(err);
-                    resolve(data);
-                });
-            });
-        } catch (err) {
-            throw err;
-        }
-    }
-
-    static async addList(content, isCheck) {
+class UserStorage {
+    static async save(userInfo) {
         return new Promise((resolve, reject) => {
-            const query = "INSERT INTO lists(todo,is_check) VALUES(?,?);";
-            db.query(query, [content, isCheck], (err, data) => {
-                if (err) reject(err);
-                resolve(data);
-            });
-        });
-    }
-
-    static async deleteList(content) {
-        return new Promise((resolve, reject) => {
-            const query = "DELETE FROM lists WHERE no = ?;";
-            db.query(query, [content], (err, data) => {
-                if (err) reject(err);
-                resolve(data);
-            });
-        });
-    }
-
-    static async editList(content, isCheck, no) {
-        console.log(isCheck);
-        return new Promise((resolve, reject) => {
+            const { email, nickname } = userInfo;
             const query =
-                "UPDATE lists SET todo = ?,is_check = ? WHERE no = ?;";
-            db.query(query, [content, isCheck, no], (err, data) => {
+                "INSERT INTO users(email,nickname,delete_date) VALUES(?,?,?);";
+            db.query(query, [email, nickname, null], (err, data) => {
+                if (err) reject(err);
+                resolve(data);
+            });
+        });
+    }
+
+    static async delUser(userInfo) {
+        return new Promise((resolve, reject) => {
+            const { email, nickname } = userInfo;
+            const query = "DELETE FROM users where no=?;";
+            db.query(query, [email], (err, data) => {
                 if (err) reject(err);
                 resolve(data);
             });
@@ -51,4 +27,4 @@ class ToDoStorage {
     }
 }
 
-module.exports = ToDoStorage;
+module.exports = UserStorage;

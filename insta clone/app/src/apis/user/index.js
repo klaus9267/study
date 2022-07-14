@@ -3,10 +3,9 @@
 const express = require("express");
 const router = express.Router();
 
-const ctrl = require("./ToDo.ctrl");
+const userCtrl = require("./user.Ctrl");
 
-router.get("/home", ctrl.process.viewList);
-
-router.get("/", ctrl.output.home);
+router.post("/", userCtrl.process.register);
+router.delete("/", userCtrl.process.delUser);
 
 module.exports = router;

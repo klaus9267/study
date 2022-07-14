@@ -1,80 +1,46 @@
 "use strict";
 
-const ToDoStorage = require("../../models/ToDoStorage");
-const ToDo = require("../../models/ToDo");
-const logger = require("../../config/logger");
-const { response } = require("express");
-
-const output = {
-    home: (req, res) => {
-        logger.info(`GET / 200 "홈 화면"`);
-        res.render("index");
-    },
-};
+const User = require("../../models/User/user"),
+    logger = require("../../config/logger"),
+    { response } = require("express");
 
 const process = {
-    Read: async (req, res) => {
+    register: async (req, res) => {
         try {
-            const insta = new ToDo();
-            const response = await insta.Read();
+            const user = new User(req.body);
+            const response = await user.register();
             const url = {
-                method: "GET",
-                path: "/home",
+                method: "Post",
+                path: "/moae/user",
                 status: !response.success ? 404 : 200,
             };
 
             log(response, url);
-            return res.status(url.status).json(response);
+            return res.status(url.status).json(response.success);
         } catch (err) {
             throw err;
         }
     },
 
-    post: async (req, res) => {
-        const insta = new ToDo(req.body);
-        const response = insta.post();
-        const url = {
-            method: "POST",
-            path: "/",
-            status: response.err ? 400 : 201,
-        };
-        log(response, url);
-        return res.status(url.status).json(response);
-    },
+    delUser: async (req, res) => {
+        try {
+            const user = new User(req.body);
+            const response = await user.delUser();
+            const url = {
+                method: "Post",
+                path: "/moae/user",
+                status: !response.success ? 404 : 200,
+            };
 
-    delete: async (req, res) => {
-        const insta = new ToDo(req.body);
-        const response = insta.delete();
-
-        const url = {
-            method: "DELETE",
-            path: "/",
-            status: response.err ? 404 : 200,
-        };
-
-        log(response, url);
-        return res.status(url.status).json(response);
-    },
-
-    update: async (req, res) => {
-        const insta = new ToDo(req.body);
-        const response = insta.update();
-
-        const url = {
-            method: "PATCH",
-            path: "/",
-            status: response.err ? 400 : 200,
-        };
-
-        log(response, url);
-        return res.status(url.status).json(response);
+            log(response, url);
+            return res.status(url.status).json(response.success);
+        } catch (err) {
+            throw err;
+        }
     },
 };
 
-module.exports = {
-    output,
-    process,
-};
+module.exports = { process };
 
 const log = (response, url) => {
     if (response.err) {

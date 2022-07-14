@@ -10,16 +10,19 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// API 경로 설정
-const profile = require("./src/apis/profile");
-// user = require("./src/apis/post");
+app.set("views", "./src/views");
+app.set("view engine", "ejs");
 
-//라우팅
-// const home = require("./src/apis/profile");
+// API 경로 설정
+// const profile = require("./src/apis/profile");
+const home = require("./src/apis/profile");
+const user = require("./src/apis/user");
 
 // API 연결
-// app.use("/moae/main", home);
-app.use("/moae/main", profile);
-// app.use("/moae/user/profile/:userNo", user);
+app.use("/", home);
+// app.use("/login", home);
+
+// app.use("/moae/main", profile);
+app.use("/moae/user", user);
 
 module.exports = app;

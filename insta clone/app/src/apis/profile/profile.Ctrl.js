@@ -1,14 +1,19 @@
 "use strict";
 
 const Profile = require("../../models/Profile/profile");
-
 const logger = require("../../config/logger");
 const { response } = require("express");
 
 const output = {
     home: (req, res) => {
         logger.info(`GET / 200 "홈 화면"`);
+        res.render("index");
     },
+
+    // home: (req, res) => {
+    //     logger.info(`GET / 200 "redirect 화면"`);
+    //     res.render("redirect");
+    // },
 };
 
 const process = {
@@ -16,13 +21,13 @@ const process = {
         try {
             const profile = new Profile();
             const response = await profile.getProfile();
-            // const url = {
-            //     method: "GET",
-            //     path: "/moae/main/:userNo",
-            //     status: response.success ? 200 : 404,
-            // };
+            const url = {
+                method: "POST",
+                path: "/moae/main/:userNo",
+                status: response.success ? 200 : 404,
+            };
 
-            // log(response, url);
+            logger.info(response, url);
             return res.status(response.success ? 200 : 404).json(response);
         } catch (err) {
             throw err;
@@ -51,3 +56,15 @@ module.exports = { output, process };
 
 // logger.log(response, url);
 // 로그출력
+
+// const log = (response, url) => {
+//     if (response.err) {
+//         logger.error(
+//             `${url.method} / ${url.status}  Response: ${response.err}`
+//         );
+//     } else {
+//         logger.info(
+//             `${url.method} / ${url.status}  Response: ${response.msg || ""}`
+//         );
+//     }
+// };

@@ -35,16 +35,4 @@ if (process.env.NODE_ENV !== "production") {
     logger.add(opts.console);
 }
 
-const log = (response, url) => {
-    if (response.err) {
-        logger.error(
-            `${url.method} / ${url.status}  Response: ${response.err}`
-        );
-    } else {
-        logger.info(
-            `${url.method} / ${url.status}  Response: ${response.msg || ""}`
-        );
-    }
-};
-
 module.exports = logger;
