@@ -15,7 +15,7 @@ const process = {
                 status: !response.success ? 404 : 200,
             };
 
-            log(response, url);
+            logger.info(response, url);
             return res.status(url.status).json(response.success);
         } catch (err) {
             throw err;
@@ -44,12 +44,8 @@ module.exports = { process };
 
 const log = (response, url) => {
     if (response.err) {
-        logger.error(
-            `${url.method} / ${url.status}  Response: ${response.err}`
-        );
+        logger.error(`${url.method} / ${url.status}  Response: ${response.err}`);
     } else {
-        logger.info(
-            `${url.method} / ${url.status}  Response: ${response.msg || ""}`
-        );
+        logger.info(`${url.method} / ${url.status}  Response: ${response.msg || ""}`);
     }
 };

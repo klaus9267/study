@@ -4,10 +4,11 @@ const db = require("../../config/mysql");
 
 class UserStorage {
     static async save(userInfo) {
+        // console.log(1);
         return new Promise((resolve, reject) => {
             const { email, nickname } = userInfo;
-            const query =
-                "INSERT INTO users(email,nickname,delete_date) VALUES(?,?,?);";
+            const query = "INSERT INTO users(email,nickname,delete_date) VALUES(?,?,?);";
+            // "SELECT * FROM users;";
             db.query(query, [email, nickname, null], (err, data) => {
                 if (err) reject(err);
                 resolve(data);

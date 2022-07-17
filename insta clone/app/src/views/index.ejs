@@ -27,25 +27,23 @@
                         // console.log(authObj);
                         window.Kakao.API.request({
                             url: "/v2/user/me",
-                            success: res => {
+                            success: (res) => {
                                 const kakao_account = res.kakao_account.email;
-                                const kakao_profile =
-                                    res.kakao_account.profile.nickname;
+                                const kakao_profile = res.kakao_account.profile.nickname;
                                 const kakao_gender = res.kakao_account.gender;
 
                                 userInfo = {
                                     kakao_account,
                                     kakao_profile,
                                 };
-                                console.log(userInfo);
-                                // post(userInfo);
+                                post(userInfo);
                             },
                         });
                     },
                 });
             };
 
-            const post = userInfo => {
+            const post = (userInfo) => {
                 const req = {
                     email: userInfo.kakao_account,
                     nickname: userInfo.kakao_profile,
@@ -60,7 +58,7 @@
             };
             // DB에 추가
 
-            const login = userInfo => {
+            const login = (userInfo) => {
                 const req = {
                     email: userInfo.kakao_account,
                     nickname: userInfo.kakao_profile,

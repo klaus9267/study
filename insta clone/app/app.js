@@ -18,7 +18,7 @@ app.set("view engine", "ejs");
 const home = require("./src/apis/profile"),
     user = require("./src/apis/user"),
     redirect = require("./src/apis/profile");
-
+const logger = require("./src/config/logger");
 // API 연결
 app.use("/", home);
 app.use("/redirect", redirect);

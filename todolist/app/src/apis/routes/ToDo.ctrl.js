@@ -1,6 +1,6 @@
 "use strict";
 
-const ToDoStorage = require("../../models/ToDoStorage");
+// const ToDoStorage = require("../../models/ToDoStorage");
 const ToDo = require("../../models/ToDo");
 const logger = require("../../config/logger");
 const { response } = require("express");
@@ -78,12 +78,8 @@ module.exports = {
 
 const log = (response, url) => {
     if (response.err) {
-        logger.error(
-            `${url.method} / ${url.status}  Response: ${response.err}`
-        );
+        logger.error(`${url.method} / ${url.status}  Response: ${response.err}`);
     } else {
-        logger.info(
-            `${url.method} / ${url.status}  Response: ${response.msg || ""}`
-        );
+        logger.info(`${url.method} / ${url.status}  Response: ${response.msg || ""}`);
     }
 };
