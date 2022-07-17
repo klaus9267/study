@@ -10,10 +10,10 @@ const output = {
         res.render("index");
     },
 
-    // home: (req, res) => {
-    //     logger.info(`GET / 200 "redirect 화면"`);
-    //     res.render("redirect");
-    // },
+    redirect: (req, res) => {
+        logger.info(`GET / 200 "redirect 화면"`);
+        res.render("redirect");
+    },
 };
 
 const process = {

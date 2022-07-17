@@ -15,12 +15,13 @@ app.set("view engine", "ejs");
 
 // API 경로 설정
 // const profile = require("./src/apis/profile");
-const home = require("./src/apis/profile");
-const user = require("./src/apis/user");
+const home = require("./src/apis/profile"),
+    user = require("./src/apis/user"),
+    redirect = require("./src/apis/profile");
 
 // API 연결
 app.use("/", home);
-// app.use("/login", home);
+app.use("/redirect", redirect);
 
 // app.use("/moae/main", profile);
 app.use("/moae/user", user);
