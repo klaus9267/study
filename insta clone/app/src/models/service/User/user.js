@@ -7,6 +7,21 @@ class User {
         this.body = body;
     }
 
+    async load() {
+        try {
+            const data = await UserStorage.load();
+            if (!data.length) {
+                return { success: false };
+            } else {
+                // console.log(data);
+                return { data, success: true };
+            }
+        } catch (err) {
+            throw err;
+        }
+        1;
+    }
+
     async register() {
         const client = this.body;
         try {
@@ -19,6 +34,7 @@ class User {
         } catch (err) {
             throw err;
         }
+        1;
     }
 
     async delUser() {

@@ -12,80 +12,10 @@
         <a href="javascript:login();">login</a>
         <br />
         <a href="javascript:updateUser();">update</a>
+        <br />
+        <a href="javascript:deleteUser();">del</a>
 
         <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-
-        <script>
-            window.Kakao.init("31924ecdb512289d55332392301c48b0");
-
-            let userInfo;
-
-            const kakaoLogin = () => {
-                window.Kakao.Auth.login({
-                    scope: "profile_nickname, account_email, gender",
-                    success: function (authObj) {
-                        // console.log(authObj);
-                        window.Kakao.API.request({
-                            url: "/v2/user/me",
-                            success: (res) => {
-                                const kakao_account = res.kakao_account.email;
-                                const kakao_profile = res.kakao_account.profile.nickname;
-                                const kakao_gender = res.kakao_account.gender;
-
-                                userInfo = {
-                                    kakao_account,
-                                    kakao_profile,
-                                };
-                                post(userInfo);
-                            },
-                        });
-                    },
-                });
-            };
-
-            const post = (userInfo) => {
-                const req = {
-                    email: userInfo.kakao_account,
-                    nickname: userInfo.kakao_profile,
-                };
-                fetch("/moae/user", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(req),
-                });
-            };
-            // DB에 추가
-
-            const login = (userInfo) => {
-                const req = {
-                    email: userInfo.kakao_account,
-                    nickname: userInfo.kakao_profile,
-                };
-                fetch("/moae/user", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(req),
-                });
-            };
-            // DB에 추가
-
-            const deleteUser = () => {
-                const req = {
-                    email: userInfo.kakao_account,
-                };
-                fetch("/moae/user", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(req),
-                });
-            };
-            // DB에 삭제
-        </script>
+        <script src="/views/front.js" type="module"></script>
     </body>
 </html>

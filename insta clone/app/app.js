@@ -12,18 +12,21 @@ app.use(express.urlencoded({ extended: true }));
 
 app.set("views", "./src/views");
 app.set("view engine", "ejs");
+app.use(express.static(`${__dirname}/src`));
 
 // API 경로 설정
-// const profile = require("./src/apis/profile");
-const home = require("./src/apis/profile"),
+const home = require("./src/apis/render"),
     user = require("./src/apis/user"),
-    redirect = require("./src/apis/profile");
+    redirect = require("./src/apis/profile"),
+    profile = require("./src/apis/profile");
+
 const logger = require("./src/config/logger");
+
 // API 연결
 app.use("/", home);
 app.use("/redirect", redirect);
 
-// app.use("/moae/main", profile);
+app.use("/moae/main", profile);
 app.use("/moae/user", user);
 
 module.exports = app;

@@ -1,6 +1,6 @@
 "use strict";
 
-const User = require("../../models/User/user"),
+const User = require("../../models/service/User/user"),
     logger = require("../../config/logger"),
     { response } = require("express");
 
@@ -15,7 +15,7 @@ const process = {
                 status: !response.success ? 404 : 200,
             };
 
-            logger.info(response, url);
+            log(response, url, "register");
             return res.status(url.status).json(response.success);
         } catch (err) {
             throw err;
@@ -27,12 +27,11 @@ const process = {
             const user = new User(req.body);
             const response = await user.delUser();
             const url = {
-                method: "Post",
+                method: "Delete",
                 path: "/moae/user",
                 status: !response.success ? 404 : 200,
             };
-
-            log(response, url);
+            log(response, url, "delete");
             return res.status(url.status).json(response.success);
         } catch (err) {
             throw err;
@@ -42,10 +41,16 @@ const process = {
 
 module.exports = { process };
 
-const log = (response, url) => {
-    if (response.err) {
-        logger.error(`${url.method} / ${url.status}  Response: ${response.err}`);
+const log = (response, url, method) => {
+    if (!response) {
+        logger.error(
+            `${url.method} / ${method} / ${url.status}  Response: ${response.err}`
+        );
     } else {
-        logger.info(`${url.method} / ${url.status}  Response: ${response.msg || ""}`);
+        logger.info(
+            `${url.method} / ${method} / ${url.status}  Response: ${
+                response.success || ""
+            }`
+        );
     }
 };
