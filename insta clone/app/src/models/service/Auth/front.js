@@ -1,10 +1,15 @@
-import * as jwt from "/models/service/Auth/auth.js";
-jwt.test();
+// const test = require("./auth.js");
+// console.log(test.test);
 
 window.Kakao.init("31924ecdb512289d55332392301c48b0");
 
 let userInfo,
-    redirectUrl = "http://localhost:8080/redirect?email=";
+    redirectUrl = "http://localhost:8080/redirect",
+    kakao = document.querySelector("#kakao");
+
+kakao.addEventListener("click", () => {
+    kakaoLogin();
+});
 
 const kakaoLogin = () => {
     window.Kakao.Auth.login({
@@ -17,12 +22,12 @@ const kakaoLogin = () => {
                     const kakao_profile = res.kakao_account.profile.nickname;
                     const kakao_gender = res.kakao_account.gender;
 
-                    // console.log(res.kakao_account);
-
                     userInfo = {
                         kakao_account,
                         kakao_profile,
+                        kakao_gender,
                     };
+                    // console.log(userInfo);
                     register(userInfo);
                     // location.href = redirectUrl;
                 },
@@ -43,6 +48,7 @@ const load = async () => {
         .then(json => json.data)
         .then(data => {
             for (let i = 0; i < data.length; i++) {
+                // console.log(data[i].no, data[i].email);
                 console.log(data[i]);
             }
         });
@@ -62,7 +68,6 @@ const register = userInfo => {
         body: JSON.stringify(req),
     });
 };
-// DB에 추가
 
 const login = userInfo => {
     const req = {
@@ -83,7 +88,7 @@ const deleteUser = () => {
         email: userInfo.kakao_account,
     };
     fetch("/moae/user", {
-        method: "POST",
+        method: "DELETE",
         headers: {
             "Content-Type": "application/json",
         },

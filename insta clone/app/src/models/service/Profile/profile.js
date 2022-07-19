@@ -13,12 +13,11 @@ class Profile {
             if (!data.length) {
                 return { success: false };
             } else {
-                return { data, success: true };
+                return { data: data, success: true };
             }
         } catch (err) {
             throw err;
         }
-        1;
     }
 }
 

@@ -1,19 +1,21 @@
 "use strict";
 
-import { jwt } from "jsonwebtoken";
+// import * as Jwt from "jsonwebtoken";
+// const Jwt = require("jsonwebtoken");
 
-function newToken(payload) {
-    jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: "1d" }, (err, token) => {
-        if (err) {
-            console.log(err);
-            return;
-        }
-        console.log(token);
-    });
+// console.log(Jwt);
+// export function newToken(payload) {
+//     Jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: "1d" }, (err, token) => {
+//         if (err) {
+//             console.log(err);
+//             return;
+//         }
+//         console.log(token);
+//     });
+// }
+
+function test() {
+    console.log("test");
 }
 
-const test = () => {
-    console.log("test");
-};
-
-export default { newToken, test };
+module.exports = test;

@@ -16,7 +16,7 @@ const process = {
             };
 
             log(response, url, "register");
-            return res.status(url.status).json(response.success);
+            return res.status(url.status).json(response);
         } catch (err) {
             throw err;
         }
@@ -32,7 +32,23 @@ const process = {
                 status: !response.success ? 404 : 200,
             };
             log(response, url, "delete");
-            return res.status(url.status).json(response.success);
+            return res.status(url.status).json(response);
+        } catch (err) {
+            throw err;
+        }
+    },
+
+    updateUser: async (req, res) => {
+        try {
+            const user = new User(req.body);
+            const response = await user.delUser();
+            const url = {
+                method: "Update",
+                path: "/moae/user/profile/:userNo",
+                status: !response.success ? 404 : 200,
+            };
+            log(response, url, "delete");
+            return res.status(url.status).json(response);
         } catch (err) {
             throw err;
         }
@@ -49,8 +65,8 @@ const log = (response, url, method) => {
     } else {
         logger.info(
             `${url.method} / ${method} / ${url.status}  Response: ${
-                response.success || ""
-            }`
+                response.success || response.msg
+            },`
         );
     }
 };

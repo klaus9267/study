@@ -25,9 +25,13 @@ class User {
     async register() {
         const client = this.body;
         try {
+            const isUser = await UserStorage.getUserbyEmail(client.email);
+            // if (isUser ) {
+            //     throw
+            // }
             const data = await UserStorage.save(client);
-            if (!data.length) {
-                return { success: false };
+            if (!data) {
+                return { success: false, msg: "The E-Mail already exists" };
             } else {
                 return { data, success: true };
             }
@@ -40,7 +44,7 @@ class User {
     async delUser() {
         const client = this.body;
         try {
-            const data = await UserStorage.delUser(client);
+            const data = await UserStorage.delUser(client.no);
             if (!data.length) {
                 return { success: false };
             } else {
