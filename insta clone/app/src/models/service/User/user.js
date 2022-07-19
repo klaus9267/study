@@ -7,31 +7,17 @@ class User {
         this.body = body;
     }
 
-    async load() {
-        try {
-            const data = await UserStorage.load();
-            if (!data.length) {
-                return { success: false };
-            } else {
-                // console.log(data);
-                return { data, success: true };
-            }
-        } catch (err) {
-            throw err;
-        }
-        1;
-    }
-
     async register() {
         const client = this.body;
         try {
             const isUser = await UserStorage.getUserbyEmail(client.email);
-            // if (isUser ) {
-            //     throw
-            // }
+            if (isUser) {
+                return { msg: "The E-Mail already exists" };
+            }
+
             const data = await UserStorage.save(client);
             if (!data) {
-                return { success: false, msg: "The E-Mail already exists" };
+                return { success: false };
             } else {
                 return { data, success: true };
             }
@@ -45,6 +31,20 @@ class User {
         const client = this.body;
         try {
             const data = await UserStorage.delUser(client.no);
+            if (!data.length) {
+                return { success: false };
+            } else {
+                return { data, success: true };
+            }
+        } catch (err) {
+            throw err;
+        }
+    }
+
+    async updateUser() {
+        const client = this.body;
+        try {
+            const data = await UserStorage.updateUser(client);
             if (!data.length) {
                 return { success: false };
             } else {

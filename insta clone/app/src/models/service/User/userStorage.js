@@ -9,34 +9,49 @@ class UserStorage {
             const { email, nickname } = userInfo,
                 insertQuery = `INSERT INTO users(email,nickname,delete_date)
                      VALUES(?,?,?);`;
-
-            for (const i in userList) {
-                const dbEmail = userList[i].email;
-                if (dbEmail === email) {
-                    return;
-                }
-                return await db.query(insertQuery, [email, nickname, null]);
-            }
+            return await db.query(insertQuery, [email, nickname, null]);
         } catch (err) {
             throw err;
         }
     }
 
     static async getUserbyEmail(email) {
-        const query = "SELECT * FROM users WHERE email=?;";
-        return await db.query(query, [email]);
+        try {
+            const query = "SELECT * FROM users WHERE email=?;";
+            const data = await db.query(query, [email]);
+            return data[0];
+        } catch (err) {
+            throw err;
+        }
     }
 
     static async delUser(no) {
         try {
             const query = "DELETE FROM users WHERE no=?;",
                 delUser = await db.query(query, [no]);
-            console.log(delUser);
+
             if (delUser[0].affectedRows) {
                 return { msg: "delete success" };
             } else {
                 return err;
             }
+        } catch (err) {
+            throw err;
+        }
+    }
+
+    static async updateUser(userdata) {
+        try {
+            console.log(userdata);
+            // const { email, nickname } = userInfo,
+            // (query = "DELETE FROM users WHERE no=?;"),
+            //     (delUser = await db.query(query, [no]));
+
+            // if (delUser[0].affectedRows) {
+            //     return { msg: "delete success" };
+            // } else {
+            //     return err;
+            // }
         } catch (err) {
             throw err;
         }
