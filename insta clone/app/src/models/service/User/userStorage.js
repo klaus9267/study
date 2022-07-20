@@ -16,10 +16,10 @@ class UserStorage {
         }
     }
 
-    static async getUserbyEmail(no) {
+    static async getUserbyEmail(email) {
         try {
-            const query = "SELECT * FROM users WHERE no=?;",
-                data = await db.query(query, [no]);
+            const query = "SELECT * FROM users WHERE email=?;",
+                data = await db.query(query, [email]);
 
             return data[0][0];
         } catch (err) {
@@ -38,41 +38,34 @@ class UserStorage {
         }
     }
 
-    static async updateUser(userData, userNo) {
+    static async test_updateUser(queryKeys, values) {
         try {
-            const keys = Object.keys(userData),
-                values = Object.values(userData);
+            const query = `UPDATE users SET ${queryKeys} WHERE users.no = ?;`,
+                data = await db.query(query, values);
 
-            let ss = keys.reduce((acc, cur, idx) => {
-                return acc + cur + "=?,";
-            }, "");
-            values.push(userNo);
+            return data[0].affectedRows;
+        } catch (err) {
+            throw err;
+        }
+    }
 
-            // console.log(data);
+    static async ori_updateUser(userData, userNo) {
+        try {
+            const query = `UPDATE users SET nickname=?, name=?, website=?,
+                description=?, email=?, phone=?, gender=?, profile_image=?
+                WHERE users.no = ?;`;
 
-            // const query = `UPDATE users SET nickname=?, name=?, website=?,
-            //     description=?, email=?, phone=?, gender=?, profile_image=?
-            //     WHERE users.no = ?;`;
-
-            // const data = await db.query(query, [
-            //     userData.nickname,
-            //     userData.name,
-            //     userData.website,
-            //     userData.description,
-            //     userData.email,
-            //     userData.phone,
-            //     userData.gender,
-            //     userData.profile_image,
-            //     userNo,
-            // ]);
-
-            //원본
-            console.log(ss);
-            console.log(values);
-            const query = `UPDATE users SET ${ss}
-            WHERE users.no = ?;`;
-
-            const data = await db.query(query, values);
+            const data = await db.query(query, [
+                userData.nickname,
+                userData.name,
+                userData.website,
+                userData.description,
+                userData.email,
+                userData.phone,
+                userData.gender,
+                userData.profile_image,
+                userNo,
+            ]);
 
             return data[0].affectedRows;
         } catch (err) {

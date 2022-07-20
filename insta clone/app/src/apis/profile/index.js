@@ -5,6 +5,6 @@ const router = express.Router();
 
 const profileCtirl = require("./profile.Ctrl");
 
-router.get("/", profileCtirl.process.readProfile);
+router.get("/:userNo", profileCtirl.process.readProfile);
 
 module.exports = router;

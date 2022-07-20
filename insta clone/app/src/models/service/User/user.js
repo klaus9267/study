@@ -1,6 +1,8 @@
 "use strict";
 
-const UserStorage = require("./userStorage");
+const { cli } = require("winston/lib/winston/config");
+const UserStorage = require("./userStorage"),
+    ProfileStorage = require("../Profile/profileStorage");
 
 class User {
     constructor(req) {
@@ -12,10 +14,10 @@ class User {
         const client = this.body;
 
         try {
-            const isUser = await UserStorage.getUserbyNo(client.no);
+            const isUser = await UserStorage.getUserbyEmail(client.email);
 
             if (isUser) {
-                return { msg: ` ${client.nickname}의 로그인` };
+                return { msg: `이미 가입된 E-Mamil입니다` };
             }
 
             const data = await UserStorage.save(client);
@@ -47,17 +49,60 @@ class User {
         }
     }
 
+    async test_updateUser() {
+        const client = this.body,
+            params = this.params,
+            profile = await ProfileStorage.selectProfile(params.userNo);
+
+        try {
+            for (const el in profile) {
+                Object.values(client).includes(profile[el])
+                    ? delete client[el]
+                    : "";
+            }
+
+            const queryKeys = Object.keys(client).reduce(
+                    (acc, cur, idx, arr) => {
+                        return idx === arr.length - 1
+                            ? acc + cur + "=?"
+                            : acc + cur + "=?,";
+                    },
+                    ""
+                ),
+                values = [...Object.values(client), params.userNo];
+
+            const data = await UserStorage.test_updateUser(queryKeys, values);
+
+            if (!data) {
+                return { success: false, msg: "정보가 잘못됬습니다" };
+            } else {
+                return {
+                    success: true,
+                    msg: `${client.nickname}의 정보수정 성공`,
+                };
+            }
+        } catch (err) {
+            throw err;
+        }
+    }
+
     async updateUser() {
         const client = this.body,
             params = this.params;
 
         try {
-            const data = await UserStorage.updateUser(client, params.userNo);
+            const data = await UserStorage.ori_updateUser(
+                client,
+                params.userNo
+            );
 
             if (!data) {
                 return { success: false, msg: "정보가 잘못됬습니다" };
             } else {
-                return { success: true, msg: `${client.nickname}의 정보수정 성공` };
+                return {
+                    success: true,
+                    msg: `${client.nickname}의 정보수정 성공`,
+                };
             }
         } catch (err) {
             throw err;

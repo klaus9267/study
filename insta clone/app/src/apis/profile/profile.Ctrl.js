@@ -7,7 +7,7 @@ const { response } = require("express");
 const process = {
     readProfile: async (req, res) => {
         try {
-            const profile = new Profile();
+            const profile = new Profile(req);
             const response = await profile.getProfile();
             const url = {
                 method: "GET",
@@ -32,9 +32,7 @@ const log = (response, url, method) => {
         );
     } else {
         logger.info(
-            `${url.method} / ${method} / ${url.status}  Response: ${
-                response.success || ""
-            }`
+            `${url.method} / ${method} / ${url.status}  Response: ${response.msg || ""} `
         );
     }
 };

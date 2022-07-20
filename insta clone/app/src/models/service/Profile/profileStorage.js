@@ -4,11 +4,12 @@ const db = require("../../../config/mysql");
 let dataaa;
 
 class ProfileStorage {
-    static async selectProfile() {
+    static async selectProfile(no) {
         try {
-            const query = "SELECT * FROM users;",
-                [rows] = await db.query(query);
-            return rows;
+            const query = "SELECT * FROM users WHERE no=?;",
+                [rows] = await db.query(query, [no]);
+
+            return rows[0];
         } catch (err) {
             throw err;
         }
