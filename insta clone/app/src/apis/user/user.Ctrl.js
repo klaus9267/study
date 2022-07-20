@@ -7,13 +7,13 @@ const User = require("../../models/service/User/user"),
 const process = {
     register: async (req, res) => {
         try {
-            const user = new User(req.body);
-            const response = await user.register();
-            const url = {
-                method: "Post",
-                path: "/moae/user",
-                status: !response.success ? 404 : 200,
-            };
+            const user = new User(req),
+                response = await user.register(),
+                url = {
+                    method: "Post",
+                    path: "/moae/user",
+                    status: !response.success ? 404 : 200,
+                };
 
             log(response, url, "register");
             return res.status(url.status).json(response);
@@ -24,13 +24,14 @@ const process = {
 
     delUser: async (req, res) => {
         try {
-            const user = new User(req.body);
-            const response = await user.delUser();
-            const url = {
-                method: "Delete",
-                path: "/moae/user",
-                status: !response.success ? 404 : 200,
-            };
+            const user = new User(req),
+                response = await user.delUser(),
+                url = {
+                    method: "Delete",
+                    path: "/moae/user",
+                    status: !response.success ? 404 : 200,
+                };
+
             log(response, url, "delete");
             return res.status(url.status).json(response);
         } catch (err) {
@@ -40,14 +41,15 @@ const process = {
 
     updateUser: async (req, res) => {
         try {
-            const user = new User(req.body);
-            const response = await user.updateUser();
-            const url = {
-                method: "Update",
-                path: "/moae/user/profile/:userNo",
-                status: !response.success ? 404 : 200,
-            };
-            log(response, url, "delete");
+            const user = new User(req),
+                response = await user.updateUser(),
+                url = {
+                    method: "Patch",
+                    path: "/moae/user/profile/:userNo",
+                    status: !response.success ? 404 : 200,
+                };
+
+            log(response, url, "update");
             return res.status(url.status).json(response);
         } catch (err) {
             throw err;
@@ -65,8 +67,8 @@ const log = (response, url, method) => {
     } else {
         logger.info(
             `${url.method} / ${method} / ${url.status}  Response: ${
-                response.success || response.msg
-            },`
+                response.msg || response.success
+            }`
         );
     }
 };

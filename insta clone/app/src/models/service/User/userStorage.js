@@ -9,6 +9,7 @@ class UserStorage {
             const { email, nickname } = userInfo,
                 insertQuery = `INSERT INTO users(email,nickname,delete_date)
                      VALUES(?,?,?);`;
+
             return await db.query(insertQuery, [email, nickname, null]);
         } catch (err) {
             throw err;
@@ -17,9 +18,10 @@ class UserStorage {
 
     static async getUserbyEmail(email) {
         try {
-            const query = "SELECT * FROM users WHERE email=?;";
-            const data = await db.query(query, [email]);
-            return data[0];
+            const query = "SELECT * FROM users WHERE email=?;",
+                data = await db.query(query, [email]);
+
+            return data[0][0];
         } catch (err) {
             throw err;
         }
@@ -30,28 +32,31 @@ class UserStorage {
             const query = "DELETE FROM users WHERE no=?;",
                 delUser = await db.query(query, [no]);
 
-            if (delUser[0].affectedRows) {
-                return { msg: "delete success" };
-            } else {
-                return err;
-            }
+            return delUser[0].affectedRows;
         } catch (err) {
             throw err;
         }
     }
 
-    static async updateUser(userdata) {
+    static async updateUser(userData, { userNo }) {
         try {
-            console.log(userdata);
-            // const { email, nickname } = userInfo,
-            // (query = "DELETE FROM users WHERE no=?;"),
-            //     (delUser = await db.query(query, [no]));
+            const query = `UPDATE users SET nickname=?, name=?, website=?,
+                description=?, email=?, phone=?, gender=?, profile_image=?
+                WHERE users.no = ?;`;
 
-            // if (delUser[0].affectedRows) {
-            //     return { msg: "delete success" };
-            // } else {
-            //     return err;
-            // }
+            const data = await db.query(query, [
+                userData.nickname,
+                userData.name,
+                userData.website,
+                userData.description,
+                userData.email,
+                userData.phone,
+                userData.gender,
+                userData.profile_image,
+                userNo,
+            ]);
+
+            return data[0].affectedRows;
         } catch (err) {
             throw err;
         }
