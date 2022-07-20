@@ -6,7 +6,8 @@ let dataaa;
 class ProfileStorage {
     static async selectProfile(no) {
         try {
-            const query = "SELECT * FROM users WHERE no=?;",
+            const query =
+                    "SELECT nickname, profile_image FROM users WHERE no=?;",
                 [rows] = await db.query(query, [no]);
 
             return rows[0];

@@ -38,10 +38,21 @@ class UserStorage {
         }
     }
 
+    static async readData(no) {
+        try {
+            const query = "SELECT * FROM users WHERE no=?;",
+                data = await db.query(query, [no]);
+
+            return data[0][0];
+        } catch (err) {
+            throw err;
+        }
+    }
+
     static async test_updateUser(queryKeys, values) {
         try {
-            const query = `UPDATE users SET ${queryKeys} WHERE users.no = ?;`,
-                data = await db.query(query, values);
+            const query = `UPDATE users SET ${queryKeys} WHERE users.no = ?;`;
+            const data = await db.query(query, values);
 
             return data[0].affectedRows;
         } catch (err) {

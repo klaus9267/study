@@ -42,7 +42,7 @@ const process = {
     updateUser: async (req, res) => {
         try {
             const user = new User(req),
-                response = await user.updateUser(),
+                response = await user.test_updateUser(),
                 url = {
                     method: "Patch",
                     path: "/moae/user/profile/:userNo",

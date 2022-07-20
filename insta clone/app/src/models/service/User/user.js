@@ -1,8 +1,7 @@
 "use strict";
 
 const { cli } = require("winston/lib/winston/config");
-const UserStorage = require("./userStorage"),
-    ProfileStorage = require("../Profile/profileStorage");
+const UserStorage = require("./userStorage");
 
 class User {
     constructor(req) {
@@ -51,25 +50,21 @@ class User {
 
     async test_updateUser() {
         const client = this.body,
-            params = this.params,
-            profile = await ProfileStorage.selectProfile(params.userNo);
+            params = this.params;
 
         try {
+            const profile = await UserStorage.readData(params.userNo);
+
             for (const el in profile) {
-                Object.values(client).includes(profile[el])
-                    ? delete client[el]
-                    : "";
+                client[el] === profile[el] ? delete client[el] : "";
             }
 
-            const queryKeys = Object.keys(client).reduce(
-                    (acc, cur, idx, arr) => {
-                        return idx === arr.length - 1
-                            ? acc + cur + "=?"
-                            : acc + cur + "=?,";
-                    },
-                    ""
-                ),
-                values = [...Object.values(client), params.userNo];
+            const values = [...Object.values(client), params.userNo],
+                queryKeys = Object.keys(client).reduce((acc, cur, idx, arr) => {
+                    return idx === arr.length - 1
+                        ? acc + cur + "=?"
+                        : acc + cur + "=?,";
+                }, "");
 
             const data = await UserStorage.test_updateUser(queryKeys, values);
 
