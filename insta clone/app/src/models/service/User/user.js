@@ -12,7 +12,7 @@ class User {
         const client = this.body;
 
         try {
-            const isUser = await UserStorage.getUserbyEmail(client.email);
+            const isUser = await UserStorage.getUserbyNo(client.no);
 
             if (isUser) {
                 return { msg: ` ${client.nickname}의 로그인` };
@@ -23,7 +23,7 @@ class User {
             if (!data) {
                 return { success: false, msg: "정보가 잘못됬습니다" };
             } else {
-                return { data, msg: `${client.nickname}의 회원가입`, success: true };
+                return { success: true, msg: `${client.nickname}의 회원가입` };
             }
         } catch (err) {
             throw err;
@@ -40,7 +40,7 @@ class User {
             if (!data) {
                 return { success: false, msg: "유저 정보가 없습니다" };
             } else {
-                return { data, success: true, msg: `회원탈퇴 성공` };
+                return { success: true, msg: `회원탈퇴 성공` };
             }
         } catch (err) {
             throw err;
@@ -52,12 +52,12 @@ class User {
             params = this.params;
 
         try {
-            const data = await UserStorage.updateUser(client, params);
+            const data = await UserStorage.updateUser(client, params.userNo);
 
             if (!data) {
                 return { success: false, msg: "정보가 잘못됬습니다" };
             } else {
-                return { data, success: true, msg: `${client.nickname}의 정보수정 성공` };
+                return { success: true, msg: `${client.nickname}의 정보수정 성공` };
             }
         } catch (err) {
             throw err;
