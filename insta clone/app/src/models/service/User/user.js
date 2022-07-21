@@ -1,5 +1,6 @@
 "use strict";
 
+const { JsonWebTokenError } = require("jsonwebtoken");
 const { cli } = require("winston/lib/winston/config");
 const UserStorage = require("./userStorage");
 
@@ -49,9 +50,9 @@ class User {
     }
 
     async test_updateUser() {
-        const client = this.body,
-            params = this.params;
-
+        // 값이 수정되지 않았을 때의 예외처리
+        const client = this.body, // 수정된 데이터
+            params = this.params; // 유저 번호
         try {
             const profile = await UserStorage.readData(params.userNo);
 
@@ -59,11 +60,12 @@ class User {
                 client[el] === profile[el] ? delete client[el] : "";
             }
 
-            const values = [...Object.values(client), params.userNo],
+            if (!Object.keys(client).length)
+                return { success: false, msg: "수정된 정보가 없습니다" };
+
+            const values = [...Object.values(client), Number(params.userNo)],
                 queryKeys = Object.keys(client).reduce((acc, cur, idx, arr) => {
-                    return idx === arr.length - 1
-                        ? acc + cur + "=?"
-                        : acc + cur + "=?,";
+                    return idx === arr.length - 1 ? acc + cur + "=?" : acc + cur + "=?,";
                 }, "");
 
             const data = await UserStorage.test_updateUser(queryKeys, values);
@@ -86,10 +88,7 @@ class User {
             params = this.params;
 
         try {
-            const data = await UserStorage.ori_updateUser(
-                client,
-                params.userNo
-            );
+            const data = await UserStorage.ori_updateUser(client, params.userNo);
 
             if (!data) {
                 return { success: false, msg: "정보가 잘못됬습니다" };
